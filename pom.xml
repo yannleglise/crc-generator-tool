@@ -3,7 +3,7 @@
 
 	<groupId>lys-apps</groupId>
 	<artifactId>crc-generator-tool</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	
 	<name>CRC 64 Generator TOOL</name>
@@ -97,7 +97,7 @@
 		<connection>scm:git:${crcGeneratorToolRepoScmUrl}</connection>
 		<developerConnection>scm:git:${crcGeneratorToolRepoScmUrl}</developerConnection>
 		<url>${crcGeneratorToolRepoScmUrl}</url>
-		<tag>HEAD</tag>
+		<tag>crc-generator-tool-1.0.0</tag>
 	</scm>
 
 	<!-- Distribution management configuration -->
