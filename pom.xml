@@ -1,0 +1,432 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>lys-apps</groupId>
+	<artifactId>crc-generator-tool</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	
+	<name>CRC 64 Generator TOOL</name>
+	<description>Tool to generate CRC 64 files</description>
+	<url>https://github.com/yannleglise/crc-generator-tool</url>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License v3.0</name>
+			<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>LYS</name>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Yann Leglise</name>
+			<email>yann.leglise@hacade.org</email>
+			<organizationUrl>https://github.com/yannleglise</organizationUrl>
+		</developer>
+	</developers>
+
+	<properties>
+		<!-- Java version: stay compatible with 1.8 for license reasons. -->
+		<javaVersion>1.8</javaVersion>
+
+		<!-- Maven general properties -->
+		<maven.compiler.source>${javaVersion}</maven.compiler.source>
+		<maven.compiler.target>${javaVersion}</maven.compiler.target>
+		<!-- Format to denote the start of the build -->
+		<maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
+		<!-- Don't skip javadoc generation -->
+		<maven.javadoc.skip>false</maven.javadoc.skip>
+
+		<!-- Encoding -->
+		<generalEncoding>UTF-8</generalEncoding>
+		<project.build.sourceEncoding>${generalEncoding}</project.build.sourceEncoding>
+
+		<!-- Base URL for SCM management -->
+		<lysProjectsBaseScmUrl>https://github.com/yannleglise</lysProjectsBaseScmUrl>
+
+		<!-- URL for this project -->
+		<crcGeneratorToolRepoScmUrl>${lysProjectsBaseScmUrl}/lys-general-parent</crcGeneratorToolRepoScmUrl>
+	
+		<!-- Location for distribution management: done by default locally in a "Distribution" directory in the 
+		    workspace, unless specified on command line -->
+		<distributionDirectory>${project.basedir}/../distribution</distributionDirectory>
+
+		<!-- Timestamp with the generation date -->
+		<timestamp>${maven.build.timestamp}</timestamp>
+
+		<!-- ============= -->
+		<!-- COTS versions -->
+		<!-- ============= -->
+		<!-- Logging -->
+		<cots.slf4j.version>1.7.36</cots.slf4j.version>
+		<cots.logback.version>1.2.11</cots.logback.version>
+		<!-- LYS libraries -->
+		<cots.lys.commons.bases.version>1.0.9</cots.lys.commons.bases.version>
+		<cots.lys.gui.bases.version>1.0.23</cots.lys.gui.bases.version>
+		<cots.lys.gui.mvc.version>1.0.24</cots.lys.gui.mvc.version>
+		<cots.lys.gui.components.version>1.0.2</cots.lys.gui.components.version>
+		<!-- LAF -->
+		<cots.flatlaf.version>3.2</cots.flatlaf.version>
+		<!-- Unit test -->
+		<cots.junit.version>4.13.2</cots.junit.version>
+
+		<!-- ====================== -->
+		<!-- Maven plugins versions -->
+		<!-- ====================== -->
+		<maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+		<maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
+		<maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
+		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+		<maven-deploy-plugin.version>3.0.0-M2</maven-deploy-plugin.version>
+		<maven-site-plugin.version>3.11.0</maven-site-plugin.version>
+		<maven-project-info-reports-plugin.version>3.2.2</maven-project-info-reports-plugin.version>
+		<maven-surefire-report-plugin.version>3.0.0-M5</maven-surefire-report-plugin.version>
+		<maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+		<maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
+	</properties>
+
+	<scm>
+		<connection>scm:git:${crcGeneratorToolRepoScmUrl}</connection>
+		<developerConnection>scm:git:${crcGeneratorToolRepoScmUrl}</developerConnection>
+		<url>${crcGeneratorToolRepoScmUrl}</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<!-- Distribution management configuration -->
+	<distributionManagement>
+		<site>
+			<id>project-site</id>
+			<name>Project site</name>
+			<url>file:///${distributionDirectory}/sites/${project.groupId}/${project.artifactId}-${project.version}</url>
+		</site>
+		<repository>
+			<id>project-release</id>
+			<name>Project release</name>
+			<url>file:///${distributionDirectory}/releases</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${cots.slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${cots.logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${cots.logback.version}</version>
+			</dependency>
+
+			<!-- LYS -->
+			<dependency>
+				<groupId>lys-commons</groupId>
+				<artifactId>lys-commons-bases</artifactId>
+				<version>${cots.lys.commons.bases.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>lys-gui</groupId>
+				<artifactId>lys-gui-bases</artifactId>
+				<version>${cots.lys.gui.bases.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>lys-gui</groupId>
+				<artifactId>lys-gui-mvc</artifactId>
+				<version>${cots.lys.gui.mvc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>lys-gui</groupId>
+				<artifactId>lys-gui-components</artifactId>
+				<version>${cots.lys.gui.components.version}</version>
+			</dependency>
+
+			<!-- Theme -->
+			<dependency>
+				<groupId>com.formdev</groupId>
+				<artifactId>flatlaf</artifactId>
+				<version>${cots.flatlaf.version}</version>				
+			</dependency>
+
+			<!-- JUnit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${cots.junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- Build -->
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<!-- ENFORCER (Ensure we use a specific java version) -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven-enforcer-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>enforce-java</id>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<requireJavaVersion>
+										<version>${javaVersion}</version>
+									</requireJavaVersion>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>extra-enforcer-rules</artifactId>
+							<version>1.0</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+				<!-- SOURCES -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+
+				<!--  RESOURCES -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+					<configuration>
+						<encoding>${generalEncoding}</encoding>
+					</configuration>
+				</plugin>
+
+				<!-- COMPILER -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<encoding>${generalEncoding}</encoding>
+						<verbose>true</verbose>
+						<fork>true</fork>
+						<executable>${JAVA_HOME}/bin/javac</executable>
+						<compilerVersion>${javaVersion}</compilerVersion>
+						<source>${javaVersion}</source>
+						<target>${javaVersion}</target>
+					</configuration>
+				</plugin>
+
+				<!-- JAR -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+					<configuration>
+						<archive>
+							<index>false</index>
+							<manifest>
+								<addClasspath>true</addClasspath>
+							</manifest>
+							<manifestEntries>
+								<mode>development</mode>
+								<url>${project.url}</url>
+								<key>value</key>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+
+				<!-- CHECKSTYLE (Ensure code is respects rules) -->
+				<!--plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven-checkstyle-plugin.version}</version>
+					<configuration>
+						<inputEncoding>${generalEncoding}</inputEncoding>
+						<configLocation>${checkstyleConfigurationFile}</configLocation>
+					</configuration>
+				</plugin-->
+
+				<!-- PDM (Source code analyzer) -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>${maven-pmd-plugin.version}</version>
+					<configuration>
+						<linkXRef>false</linkXRef>
+						<sourceEncoding>${generalEncoding}</sourceEncoding>
+						<minimumTokens>100</minimumTokens>
+						<targetJdk>${javaVersion}</targetJdk>
+						<excludes />
+						<excludeRoots />
+					</configuration>
+				</plugin>
+
+				<!-- JAVADOC -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+
+				<!-- SITE -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+				</plugin>
+
+				<!-- SURFIRE REPORT -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>${maven-surefire-report-plugin.version}</version>
+				</plugin>
+
+				<!-- ASSEMBLY -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven-assembly-plugin.version}</version>
+				</plugin>
+
+				<!-- DEPENDENCY -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven-dependency-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<!-- Copy dependencies to build directory -->
+								<outputDirectory>${project.build.directory}</outputDirectory>
+								<overWriteReleases>false</overWriteReleases>
+								<overWriteSnapshots>true</overWriteSnapshots>
+								<overWriteIfNewer>true</overWriteIfNewer>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- ENFORCER -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+
+			<!--  RESOURCES -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+			<!-- COMPILER -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<!-- JAR -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<!--  Reporting -->
+	<reporting>
+
+		<plugins>
+			<!-- CHECKSTYLE -->
+			<!--plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin-->
+
+			<!-- PDM (Source code analyzer) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+
+			<!-- SITE -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+			</plugin>
+
+			<!-- PROJECT INFO REPORTS -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+			</plugin>
+
+			<!-- SURFIRE REPORT -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</reporting>
+	<dependencies>
+		<dependency>
+			<groupId>lys-commons</groupId>
+			<artifactId>lys-commons-bases</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>lys-gui</groupId>
+			<artifactId>lys-gui-bases</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>lys-gui</groupId>
+			<artifactId>lys-gui-mvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>lys-gui</groupId>
+			<artifactId>lys-gui-components</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.formdev</groupId>
+			<artifactId>flatlaf</artifactId>
+		</dependency>
+	</dependencies>
+</project>

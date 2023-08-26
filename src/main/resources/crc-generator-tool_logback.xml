@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>-- %d{HH:mm:ss.SSS} [%thread] %-5level %logger{50}%n%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LYS_LOG_DIR}/crc-gen-tool.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- Include date in file name, plus rollover index -->
+			<fileNamePattern>${LYS_LOG_DIR}/crc-gen-tool_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+			<!-- each file should be at most 5MB, keep 7 days worth of history, but at most 100MB -->
+			<maxFileSize>5MB</maxFileSize>
+			<maxHistory>7</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>-- %d{HH:mm:ss.SSS} [%thread] %-5level %logger{50}%n%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+</configuration>

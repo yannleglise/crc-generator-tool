@@ -1,0 +1,49 @@
+######################################################
+######################################################
+## Configuration for Git behaviour for LYS projects ##
+######################################################
+######################################################
+
+# Set the default mode to 'auto'
+* text=auto
+
+###########################################################################
+# Configure the automatic conversion of CRLF to LF for regular text files #
+###########################################################################
+# Standard text files
+*.txt text
+# Java source files
+*.java text
+# Properties files
+*.properties text
+# XML files (including pom.xml)
+*.xml text
+# Checkstyle project configuration file
+.checkstyle text
+# Class path project configuration file
+.classpath text
+# Project configuration file
+.project text
+# Eclipse project preferences files
+*.prefs text
+# Licensing file
+LICENSE text
+# Markdown files
+*.md text
+# Shell scripts
+*.sh text
+*.bat text
+*.cmd text
+# Other specific files
+term_color_codes text
+
+##################################################################
+# Configure the files that are binary and should not be touched  #
+##################################################################
+# Word documents
+*.doc binary
+*.docx binary
+# Picture files
+*.png binary
+*.gif binary
+
