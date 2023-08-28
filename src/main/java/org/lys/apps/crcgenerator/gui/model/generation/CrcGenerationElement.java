@@ -22,7 +22,7 @@ public class CrcGenerationElement
   /**
    * The next available unique identifier.
    */
-  private static long NextAvailableIdentifier = 0;
+  private static long NextAvailableIdentifier = 0; // NOSONAR as LYS naming conventions
 
   /**
    * The instance unique identifier.

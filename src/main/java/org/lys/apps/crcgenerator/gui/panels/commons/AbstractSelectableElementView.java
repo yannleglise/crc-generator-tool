@@ -94,7 +94,9 @@ public abstract class AbstractSelectableElementView extends AbstractLysView impl
   @Override
   protected void createComponents()
   {
-    selectionCb = GuiComponentFactory.createHtmlFormattedCheckBox(getCheckBoxLabel());
+    String lFormattedCheckboxLabel = GuiConstants.FILENAME_HTML_FORMAT_START + getCheckBoxLabel()
+        + GuiConstants.FILENAME_HTML_FORMAT_STOP;
+    selectionCb = GuiComponentFactory.createHtmlFormattedCheckBox(lFormattedCheckboxLabel);
     selectionCb.addActionListener(this);
   }
 

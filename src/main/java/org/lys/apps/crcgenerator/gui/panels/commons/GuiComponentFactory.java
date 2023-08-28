@@ -59,8 +59,7 @@ public final class GuiComponentFactory
   public static JCheckBox createHtmlFormattedCheckBox(final String pInternalHtmlText)
   {
     String lHtmlCode = GuiConstants.HTML_OPEN_MARKUP + pInternalHtmlText + GuiConstants.HTML_CLOSE_MARKUP;
-    JCheckBox lCheckBox = new JCheckBox(lHtmlCode);
-    return lCheckBox;
+    return new JCheckBox(lHtmlCode);
   }
 
   /**
@@ -73,8 +72,7 @@ public final class GuiComponentFactory
   public static JRadioButton createHtmlFormattedRadioButton(final String pInternalHtmlText)
   {
     String lHtmlCode = GuiConstants.HTML_OPEN_MARKUP + pInternalHtmlText + GuiConstants.HTML_CLOSE_MARKUP;
-    JRadioButton lRadioButton = new JRadioButton(lHtmlCode);
-    return lRadioButton;
+    return new JRadioButton(lHtmlCode);
   }
 
   /**

@@ -110,6 +110,16 @@ public final class GuiConstants
   public static final String BORDER_LABEL_HTML_FORMATTING_TRAILER = LABEL_HTML_FORMATTING_TRAILER + HTML_CLOSE_MARKUP;
 
   /**
+   * The opening markup for formatting file names (or file extensions).
+   */
+  public static final String FILENAME_HTML_FORMAT_START = "<span style=\"font-family:courier,monospace;font-weight:bold\">";
+
+  /**
+   * The closing markup for formatting file names (or file extensions).
+   */
+  public static final String FILENAME_HTML_FORMAT_STOP = "</span>";
+
+  /**
    * The text for the label associated with the input files directory field in the source panel.
    */
   public static final String SOURCE_PANEL_INPUT_FILES_DIR_LABEL_TEXT = LABEL_HTML_FORMATTING_LEADER
@@ -230,7 +240,7 @@ public final class GuiConstants
   /**
    * The toolip text for the radio button associated with the destination type corresponding to a custom directory.
    */
-  public static final String DESTINATION_TYPE_CUSTOM_DIR_TOOLTIP = "The destination files will be writting in the specified custom directory";
+  public static final String DESTINATION_TYPE_CUSTOM_DIR_TOOLTIP = "The destination files will be written in the specified custom directory";
 
   /**
    * The text displayed on the frame around the CRC generation panel.
@@ -298,12 +308,12 @@ public final class GuiConstants
   /**
    * Leader format for the file columns of the CRC file generation table.
    */
-  public static final String CFT_FILE_COL_LEADER = HTML_OPEN_MARKUP + "<code><b>";
+  public static final String CFT_FILE_COL_LEADER = HTML_OPEN_MARKUP + FILENAME_HTML_FORMAT_START;
 
   /**
    * Leader format for the file columns of the CRC file generation table.
    */
-  public static final String CFT_FILE_COL_TRAILER = "<b><code>" + HTML_CLOSE_MARKUP;
+  public static final String CFT_FILE_COL_TRAILER = FILENAME_HTML_FORMAT_STOP + HTML_CLOSE_MARKUP;
 
   /**
    * Format for the source file column in the CRC file generation table.

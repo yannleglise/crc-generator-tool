@@ -46,7 +46,7 @@ public class ToolMainPanel extends AbstractLysPanel
   /**
    * The action provider.
    */
-  private final ILysActionProvider actionProvider;
+  private final transient ILysActionProvider actionProvider;
 
   /**
    * Constructor.

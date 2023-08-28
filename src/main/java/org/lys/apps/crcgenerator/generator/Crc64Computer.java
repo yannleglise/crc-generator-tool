@@ -71,7 +71,7 @@ public final class Crc64Computer
   /**
    * The unique class instance.
    */
-  private static Crc64Computer Instance = null;
+  private static Crc64Computer Instance = null; // NOSONAR as LYS naming conventions
 
   /**
    * The CRC table to help computing the CRC 64 value.

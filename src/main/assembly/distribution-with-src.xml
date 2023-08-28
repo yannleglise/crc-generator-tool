@@ -1,0 +1,49 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+	<id>distribution-with-src</id>
+	<formats>
+		<format>zip</format> <!-- Produce a zip archive -->
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory> <!-- The zip will contain a base directory -->
+	<baseDirectory>crc-64-generator</baseDirectory> <!-- The base directory in which all the files will be contained in the archive -->
+	<files>
+		<file>
+			<!-- Include the license file as LICENSE.txt -->
+			<source>${project.basedir}/LICENSE</source>
+			<destName>LICENSE.txt</destName>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<!-- Include the script for Windows-->
+			<source>${project.basedir}/src/main/scripts/crc64-generator-tool.cmd</source>
+			<destName>crc64-generator-tool.cmd</destName>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<!-- Include the script for Linux -->
+			<source>${project.basedir}/src/main/scripts/crc64-generator-tool.sh</source>
+			<destName>crc64-generator-tool.sh</destName>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<!-- Include the jar from this project -->
+			<source>${project.build.directory}/crc-generator-tool-${project.version}.jar</source>
+			<outputDirectory>/bin</outputDirectory>
+		</file>
+	</files>
+	<fileSets>
+		<fileSet>
+			<!-- Include the sources of the project -->
+			<directory>${project.basedir}/src/main/java</directory>
+			<outputDirectory>/src</outputDirectory>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<!-- Place the binary files in a specific directory -->
+			<outputDirectory>/bin</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+</assembly>

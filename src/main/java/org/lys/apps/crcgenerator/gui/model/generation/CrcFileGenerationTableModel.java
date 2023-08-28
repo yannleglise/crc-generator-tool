@@ -60,7 +60,7 @@ public class CrcFileGenerationTableModel extends AbstractTableModel implements I
   /**
    * The list of CRC generation elements.
    */
-  private final List<CrcGenerationElement> crcGenerationElementList;
+  private final transient List<CrcGenerationElement> crcGenerationElementList;
 
   /**
    * Constructor.
