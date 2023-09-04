@@ -66,9 +66,9 @@
 		<cots.logback.version>1.2.11</cots.logback.version>
 		<!-- LYS libraries -->
 		<cots.lys.commons.bases.version>1.0.9</cots.lys.commons.bases.version>
-		<cots.lys.gui.bases.version>1.0.23</cots.lys.gui.bases.version>
-		<cots.lys.gui.mvc.version>1.0.24</cots.lys.gui.mvc.version>
-		<cots.lys.gui.components.version>1.0.2</cots.lys.gui.components.version>
+		<cots.lys.gui.bases.version>1.0.24</cots.lys.gui.bases.version>
+		<cots.lys.gui.mvc.version>1.0.25</cots.lys.gui.mvc.version>
+		<cots.lys.gui.components.version>1.0.3</cots.lys.gui.components.version>
 		<!-- LAF -->
 		<cots.flatlaf.version>3.2</cots.flatlaf.version>
 		<!-- Unit test -->

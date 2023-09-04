@@ -88,9 +88,7 @@ public class CrcGeneratorTool
     destinationDirectoryController.start();
     crcFileGenerationController.start();
 
-    /**
-     * The changes from the source file model needs to be monitored by the destination directory controller
-     */
+    // The changes from the source file model needs to be monitored by the destination directory controller
     sourceFileController.getSourceFileModel().register(destinationDirectoryController);
 
     // Display the frame
@@ -152,7 +150,8 @@ public class CrcGeneratorTool
     }
     catch (LysLogInitializationException e)
     {
-      System.err.println("Fix this error: " + e.toString()); // NOSONAR as linked with the logging system
+      System.err.println("Fix this error: " + e.toString() + ": " + e.getMessage()); // NOSONAR as linked with the
+                                                                                     // logging system
     }
     catch (UnsupportedLookAndFeelException e)
     {

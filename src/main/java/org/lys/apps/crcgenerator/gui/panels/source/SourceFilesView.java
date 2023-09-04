@@ -151,7 +151,17 @@ public class SourceFilesView extends AbstractLysView
 
     // Configure it to allow only one directory selection
     lFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    File lRootDirectory = Paths.get(System.getProperty("user.home")).getRoot().toFile();
+    File lRootDirectory;
+
+    // Use the previously selected directory if defined, or the user directory otherwise
+    if (selectedSourceDirectory == null)
+    {
+      lRootDirectory = Paths.get(System.getProperty("user.home")).getRoot().toFile();
+    }
+    else
+    {
+      lRootDirectory = selectedSourceDirectory;
+    }
     lFileChooser.setCurrentDirectory(lRootDirectory);
     lFileChooser.setDialogTitle(GuiConstants.SOURCE_FILES_DIR_SELECTION_CHOOSER_DIALOG_TITLE);
 

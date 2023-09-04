@@ -171,7 +171,8 @@ public class DestinationDirectoryController extends AbstractSubController
         && (pAspect.getAspectIdentifier() == SourceFilesModel.SOURCE_DIRECTORY_ASPECT_IDENTIFIER))
     {
       sourceDirectory = (File) pAspectData;
-      updateDestinationDirectory(destinationModel.getTargetDestinationType());
+      destinationModel.setTargetDestinationType(TargetDestinationType.SAME_DIRECTORY);
+      updateDestinationDirectory(TargetDestinationType.SAME_DIRECTORY);
     }
   }
 
@@ -222,7 +223,17 @@ public class DestinationDirectoryController extends AbstractSubController
 
     // Configure it to allow only one directory selection
     lFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    File lRootDirectory = Paths.get(System.getProperty("user.home")).getRoot().toFile();
+    File lRootDirectory;
+
+    // Use the last selected custom directory if defined, otherwise the user directory
+    if (customDestinationDirectory == null)
+    {
+      lRootDirectory = Paths.get(System.getProperty("user.home")).getRoot().toFile();
+    }
+    else
+    {
+      lRootDirectory = customDestinationDirectory;
+    }
     lFileChooser.setCurrentDirectory(lRootDirectory);
     lFileChooser.setDialogTitle(GuiConstants.CUSTOM_DESTINATION_DIR_SELECTION_CHOOSER_DIALOG_TITLE);
 
